@@ -1,0 +1,60 @@
+# Example GraphQL queries for auth_pro
+
+# Register a new user
+mutation RegisterUser {
+  register(
+    email: "user@example.com"
+    password: "securePassword123"
+    firstName: "John"
+    lastName: "Doe"
+  ) {
+    success
+    message
+    user {
+      id
+      email
+      firstName
+      lastName
+      dateJoined
+    }
+  }
+}
+
+# Login (get JWT tokens)
+mutation LoginUser {
+  tokenAuth(email: "user@example.com", password: "securePassword123") {
+    token
+    refreshToken
+    payload
+  }
+}
+
+# Refresh token
+mutation RefreshToken {
+  refreshToken(refreshToken: "<your-refresh-token>") {
+    token
+    payload
+    refreshToken
+  }
+}
+
+# Verify token
+mutation VerifyToken {
+  verifyToken(token: "<your-token>") {
+    payload
+  }
+}
+
+# Get current user (protected query)
+query Me {
+  me {
+    id
+    email
+    firstName
+    lastName
+    dateJoined
+  }
+}
+
+# Note: For the protected queries, you need to include the JWT token in the HTTP Authorization header:
+# Authorization: JWT <your-token>
