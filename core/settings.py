@@ -1,4 +1,4 @@
-"""Django settings for auth_pro project."""
+"""Django settings for core project."""
 
 from pathlib import Path
 from datetime import timedelta
@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     # Local apps
-    "users",
+    "apps.users",
 ]
 
 # Middleware configuration
@@ -39,8 +39,8 @@ MIDDLEWARE = [
 ]
 
 # URL and application configuration
-ROOT_URLCONF = "auth_pro.urls"
-WSGI_APPLICATION = "auth_pro.wsgi.application"
+ROOT_URLCONF = "core.urls"
+WSGI_APPLICATION = "core.wsgi.application"
 
 # Template configuration
 TEMPLATES = [
