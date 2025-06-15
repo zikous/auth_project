@@ -2,19 +2,12 @@
 
 # Register a new user
 mutation RegisterUser {
-  register(
-    email: "user@example.com"
-    password: "securePassword123"
-    firstName: "John"
-    lastName: "Doe"
-  ) {
+  register(email: "user@example.com", password: "securePassword123") {
     success
     message
     user {
       id
       email
-      firstName
-      lastName
       dateJoined
     }
   }
@@ -50,8 +43,6 @@ query Me {
   me {
     id
     email
-    firstName
-    lastName
     dateJoined
   }
 }

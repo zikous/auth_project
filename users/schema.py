@@ -12,21 +12,19 @@ User = get_user_model()
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "date_joined", "is_active")
+        fields = ("id", "email", "date_joined", "is_active")
 
 
 class CreateUserMutation(graphene.Mutation):
     class Arguments:
         email = graphene.String(required=True)
         password = graphene.String(required=True)
-        first_name = graphene.String(required=False)
-        last_name = graphene.String(required=False)
 
     user = graphene.Field(UserType)
     success = graphene.Boolean()
     message = graphene.String()
 
-    def mutate(self, info, email, password, first_name=None, last_name=None):
+    def mutate(self, info, email, password):
         if User.objects.filter(email=email).exists():
             return CreateUserMutation(
                 success=False, message="User with this email already exists"
@@ -35,8 +33,6 @@ class CreateUserMutation(graphene.Mutation):
         user = User.objects.create_user(
             email=email,
             password=password,
-            first_name=first_name or "",
-            last_name=last_name or "",
         )
 
         return CreateUserMutation(
